@@ -1,0 +1,29 @@
+name: Main Workflow
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+on:
+
+  push:
+    branches: [ main ]
+    tags: [ "*" ]
+    paths-ignore: [ "README.md", "history.md", "release-notes.md" ]
+
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    name: Build Application
+    uses: ./.github/workflows/build.yml
+    with:
+      app_name: MyApp
+
+    strategy:
+      fail-fast: true

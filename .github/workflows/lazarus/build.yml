@@ -1,0 +1,51 @@
+name: Build Workflow
+
+on:
+
+  workflow_call:
+    inputs:
+      app_name:
+        description: 'Application Name'
+        default: ''
+        required: true
+        type: string
+      win:
+        description: 'Windows Tripplet'
+        default: 'x64-windows'
+        required: false
+        type: string
+      lin:
+        description: 'Linux Tripplet'
+        default: 'x64-linux'
+        required: false
+        type: string
+      mac:
+        description: 'macOS Tripplet'
+        default: 'x64-osx'
+        required: false
+        type: string
+
+jobs:
+
+  build-app:
+    name: ${{ github.workflow }}-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    env:
+      _EXE_: ${{ matrix.os == 'windows-latest' && format('{0}.exe', inputs.app_name) || inputs.app_name }}
+      _BINARY_: ${{ matrix.os == 'windows-latest' && format('{0}-{1}.exe', inputs.app_name, matrix.triplet) || format('{0}-{1}', inputs.app_name, matrix.triplet) }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: windows-latest
+            triplet: ${{ inputs.win }}
+          - os: ubuntu-latest
+            triplet: ${{ inputs.lin }}
+          - os: macos-latest
+            triplet: ${{ inputs.mac }}
+    steps:
+      - name: Print some values
+        run: |
+          echo App Name: ${{ inputs.app_name }}
