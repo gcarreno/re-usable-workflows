@@ -6,7 +6,7 @@ A collection of GitHub reusable workflows
 
 ## Object Pascal: Lazarus
 
-- [main](.github/workflows/lazarus/main.yml)
-- [build](.github/workflows/lazarus/build.yml)
-- [test](.github/workflows/lazarus/test.yml)
-- [release](.github/workflows/lazarus/release.yml)
+- [main](.github/workflows/main.lazarus.yml)
+- [build](.github/workflows/build.lazarus.yml)
+- [test](.github/workflows/test.lazarus.yml)
+- [release](.github/workflows/release.lazarus.yml)
