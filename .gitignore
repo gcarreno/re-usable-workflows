@@ -1,0 +1,12 @@
+## Project specific
+
+# Temporary files
+*~
+*#
+.#*
+/.tmp/
+
+# IDE settings
+.idea
+.vscode/
+.history/
