@@ -56,5 +56,5 @@ jobs:
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
-          echo Setting artefact_path to ${matrix.triplet}
-          echo "artefact_path=${matrix.triplet}" >> "${GITHUB_OUTPUT}"
+          echo Setting artefact_path to ${{ matrix.triplet }}
+          echo "artefact_path=${{ matrix.triplet }}" >> "${GITHUB_OUTPUT}"
