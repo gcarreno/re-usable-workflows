@@ -43,7 +43,7 @@ jobs:
   release:
     name: Create GitHub Release
     uses: ./.github/workflows/release.lazarus.yml
-    needs: build
+    needs: [ build, test ]
     with:
       artefacts: '[
           "win": "${{ needs.build.outputs.win_artefact_path }}"

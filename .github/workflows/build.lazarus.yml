@@ -52,8 +52,10 @@ jobs:
           - os: macos-latest
             triplet: ${{ fromJSON(inputs.triplets).osx }}
 
-#    outputs:
-#      artefact_path: ${{ steps.build_app.outputs }}
+    outputs:
+      win_artefact_path: ${{ steps.build_app.outputs.win_artefact_path }}
+      lin_artefact_path: ${{ steps.build_app.outputs.lin_artefact_path }}
+      osx_artefact_path: ${{ steps.build_app.outputs.osx_artefact_path }}
 
     steps:
       - name: Print some values
