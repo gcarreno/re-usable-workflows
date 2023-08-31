@@ -19,11 +19,15 @@ on:
         default:
         required: true
         type: string
+    outputs:
+      artefact_path:
+        description: Path to the stored artefact folder
+        value: ${{ jobs.build_app.outputs.artefact_path }}
 
 jobs:
 
-  build-app:
-    name: ${{ github.workflow }}-${{ matrix.os }}
+  build_app:
+    name: build-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     env:
@@ -41,6 +45,9 @@ jobs:
           - os: macos-latest
             triplet: ${{ fromJSON(inputs.triplets).osx }}
 
+#    outputs:
+#      artefact_path: ${{ steps.build_app.outputs }}
+
     steps:
       - name: Print some values
         run: |
@@ -49,3 +56,5 @@ jobs:
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
+          echo Setting artefact_path to ${matrix.triplet}
+          echo "artefact_path=${matrix.triplet}" >> "${GITHUB_OUTPUT}"

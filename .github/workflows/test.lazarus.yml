@@ -17,8 +17,8 @@ on:
 
 jobs:
 
-  build-app:
-    name: ${{ github.workflow }}-${{ matrix.os }}
+  test_app:
+    name: test-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     env:
