@@ -1,4 +1,4 @@
-name: Main Workflow
+name: Main Lazarus Workflow
 
 permissions:
   contents: write
@@ -21,7 +21,7 @@ jobs:
 
   build:
     name: Build Application
-    uses: ./.github/workflows/lazarus/build.yml
+    uses: ./.github/workflows/build.lazarus.yml
     with:
       app_name: MyApp
 
