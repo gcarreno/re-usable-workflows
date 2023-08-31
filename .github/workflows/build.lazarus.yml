@@ -26,14 +26,14 @@ jobs:
       _EXE_TRIPLET_: ${{ matrix.os == 'windows-latest' && format('{0}-{1}.exe', inputs.app_name, matrix.triplet) || format('{0}-{1}', inputs.app_name, matrix.triplet) }}
 
     strategy:
-      matrix
+      matrix:
         include:
           - os: windows-latest
-            triplet: x64-windows
+            triplet: x86_64-win64
           - os: ubuntu-latest
-            triplet: x64-linux
+            triplet: x86_64-linux
           - os: macos-latest
-            triplet: x64-osx
+            triplet: x86_64-darwin
 
     steps:
       - name: Print some values
