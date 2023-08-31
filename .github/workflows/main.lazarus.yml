@@ -3,10 +3,6 @@ name: Lazarus Main Workflow
 permissions:
   contents: write
 
-defaults:
-  run:
-    shell: bash
-
 on:
 
   push:
