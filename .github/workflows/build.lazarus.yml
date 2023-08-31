@@ -23,13 +23,13 @@ on:
     outputs:
       win_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ steps.vars.outputs.win_artefact_path }}
+        value: ${{ jobs.build_app.outputs.win_artefact_path }}
       lin_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ steps.vars.outputs.lin_artefact_path }}
+        value: ${{ jobs.build_app.outputs.lin_artefact_path }}
       osx_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ steps.vars.outputs.lin_artefact_path }}
+        value: ${{ jobs.build_app.outputs.lin_artefact_path }}
 
 jobs:
 
@@ -52,10 +52,10 @@ jobs:
           - os: macos-latest
             triplet: ${{ fromJSON(inputs.triplets).osx }}
 
-#    outputs:
-#      win_artefact_path: ${{ steps.build_app.outputs.win_artefact_path }}
-#      lin_artefact_path: ${{ steps.build_app.outputs.lin_artefact_path }}
-#      osx_artefact_path: ${{ steps.build_app.outputs.osx_artefact_path }}
+    outputs:
+      win_artefact_path: ${{ steps.vars.outputs.win_artefact_path }}
+      lin_artefact_path: ${{ steps.vars.outputs.lin_artefact_path }}
+      osx_artefact_path: ${{ steps.vars.outputs.osx_artefact_path }}
 
     steps:
       - name: Print some values
@@ -86,6 +86,6 @@ jobs:
 
       - name: Print outputs
         run: |
-          echo Win output: ${{ steps.vars.output.win_artefact_path }}
-          echo Lin output: ${{ steps.vars.output.lin_artefact_path }}
-          echo OSX output: ${{ steps.vars.output.osx_artefact_path }}
+          echo Win output: ${{ steps.vars.outputs.win_artefact_path }}
+          echo Lin output: ${{ steps.vars.outputs.lin_artefact_path }}
+          echo OSX output: ${{ steps.vars.outputs.osx_artefact_path }}
