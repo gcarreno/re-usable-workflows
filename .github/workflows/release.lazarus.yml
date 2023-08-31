@@ -1,0 +1,21 @@
+name: Lazarus Release Workflow
+
+on:
+
+  workflow_call:
+    inputs:
+      artefacts:
+        description: A JSON object with the list of artefact from the build action
+        required: true
+        type: string
+
+jobs:
+
+  release_app:
+    name: release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print some values
+        run: |
+          echo Artefacts: ${{ inputs.artefacts }}

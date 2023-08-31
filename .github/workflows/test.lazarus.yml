@@ -5,13 +5,11 @@ on:
   workflow_call:
     inputs:
       app_name:
-        description: 'Application Name'
-        default: ''
+        description: Application Name
         required: true
         type: string
       lpi_path:
-        description: 'Path to the *.lpi file'
-        default: ''
+        description: Path to the "*.lpi" file
         required: true
         type: string
 

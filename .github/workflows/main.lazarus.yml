@@ -25,7 +25,11 @@ jobs:
     with:
       app_name: MyApp
       lpi_path: src/MyApp.lpi
-      triplets: '{"win": "x86_64-win64", "lin": "x86_64-linux", "osx": "x86_64-darwin"}'
+      triplets: '{
+          "win": "x86_64-win64",
+          "lin": "x86_64-linux",
+          "osx": "x86_64-darwin"
+        }'
 
     strategy:
       fail-fast: true
@@ -36,6 +40,18 @@ jobs:
     with:
       app_name: MyApp
       lpi_path: tests/MyAppTest.lpi
+
+    strategy:
+      fail-fast: true
+
+  release:
+    name: Create GitHub Release
+    uses: ./.github/workflows/release.lazarus.yml
+    needs: build
+    with:
+      artefacts: '[
+          "win": "${{ needs.build.outputs.win_artefact_path }}"
+        ]'
 
     strategy:
       fail-fast: true

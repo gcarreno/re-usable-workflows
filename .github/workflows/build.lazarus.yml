@@ -6,23 +6,26 @@ on:
     inputs:
       app_name:
         description: Application Name
-        default:
         required: true
         type: string
       lpi_path:
         description: Path to the *.lpi file
-        default:
         required: true
         type: string
       triplets:
         description: A JSON object containing the triplets
-        default:
         required: true
         type: string
     outputs:
-      artefact_path:
+      win_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build_app.outputs.artefact_path }}
+        value: ${{ jobs.build_app.outputs.win_artefact_path }}
+      lin_artefact_path:
+        description: Path to the stored artefact folder
+        value: ${{ jobs.build_app.outputs.lin_artefact_path }}
+      osx_artefact_path:
+        description: Path to the stored artefact folder
+        value: ${{ jobs.build_app.outputs.lin_artefact_path }}
 
 jobs:
 
@@ -53,8 +56,21 @@ jobs:
         run: |
           echo App Name: ${{ inputs.app_name }}
           echo LPI Path: ${{ inputs.app_name }}
+          echo Triplets: ${{ inputs.triplets }}
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
-          echo Setting artefact_path to ${{ matrix.triplet }}
-          echo "artefact_path=${{ matrix.triplet }}" >> "${GITHUB_OUTPUT}"
+          case "${{ matrix.os }}" in
+            "windows-latest")
+              echo Setting win_artefact_path to ${{ matrix.triplet }}
+              echo "win_artefact_path=${{ matrix.triplet }}" >> "${GITHUB_OUTPUT}"
+            ;;
+            "ubuntu-latest")
+              echo Setting lin_artefact_path to ${{ matrix.triplet }}
+              echo "lin_artefact_path=${{ matrix.triplet }}" >> "${GITHUB_OUTPUT}"
+            ;;
+            "macos-latest")
+              echo Setting osx_artefact_path to ${{ matrix.triplet }}
+              echo "osx_artefact_path=${{ matrix.triplet }}" >> "${GITHUB_OUTPUT}"
+            ;;
+          esac
