@@ -1,4 +1,4 @@
-name: Lazarus Build Workflow
+name: Lazarus Test Workflow
 
 on:
 
@@ -23,22 +23,10 @@ jobs:
 
     env:
       _EXE_: ${{ matrix.os == 'windows-latest' && format('{0}.exe', inputs.app_name) || inputs.app_name }}
-      _EXE_TRIPLET_: ${{ matrix.os == 'windows-latest' && format('{0}-{1}.exe', inputs.app_name, matrix.triplet) || format('{0}-{1}', inputs.app_name, matrix.triplet) }}
-
-    strategy:
-      matrix
-        include:
-          - os: windows-latest
-            triplet: x64-windows
-          - os: ubuntu-latest
-            triplet: x64-linux
-          - os: macos-latest
-            triplet: x64-osx
 
     steps:
       - name: Print some values
         run: |
           echo App Name: ${{ inputs.app_name }}
-          echo LPI Path: ${{ inputs.app_name }}
+          echo LPI Path: ${{ inputs.lpi_path }}
           echo Executable: ${{ env._EXE_ }}
-          echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}

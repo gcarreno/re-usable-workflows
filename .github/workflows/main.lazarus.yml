@@ -1,4 +1,4 @@
-name: Main Lazarus Workflow
+name: Lazarus Main Workflow
 
 permissions:
   contents: write
@@ -24,6 +24,21 @@ jobs:
     uses: ./.github/workflows/build.lazarus.yml
     with:
       app_name: MyApp
+      lpi_path: src/MyApp.lpi
 
     strategy:
       fail-fast: true
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+  test:
+    name: Test Application
+    uses: ./.github/workflows/test.lazarus.yml
+    with:
+      app_name: MyApp
+      lpi_path: tests/MyAppTest.lpi
+
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
