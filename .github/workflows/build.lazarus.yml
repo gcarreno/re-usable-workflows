@@ -23,13 +23,13 @@ on:
     outputs:
       win_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build_app.outputs.win_artefact_path }}
+        value: ${{ steps.vars.outputs.win_artefact_path }}
       lin_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build_app.outputs.lin_artefact_path }}
+        value: ${{ steps.vars.outputs.lin_artefact_path }}
       osx_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build_app.outputs.lin_artefact_path }}
+        value: ${{ steps.vars.outputs.lin_artefact_path }}
 
 jobs:
 
@@ -52,10 +52,10 @@ jobs:
           - os: macos-latest
             triplet: ${{ fromJSON(inputs.triplets).osx }}
 
-    outputs:
-      win_artefact_path: ${{ steps.build_app.outputs.win_artefact_path }}
-      lin_artefact_path: ${{ steps.build_app.outputs.lin_artefact_path }}
-      osx_artefact_path: ${{ steps.build_app.outputs.osx_artefact_path }}
+#    outputs:
+#      win_artefact_path: ${{ steps.build_app.outputs.win_artefact_path }}
+#      lin_artefact_path: ${{ steps.build_app.outputs.lin_artefact_path }}
+#      osx_artefact_path: ${{ steps.build_app.outputs.osx_artefact_path }}
 
     steps:
       - name: Print some values
@@ -66,17 +66,26 @@ jobs:
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
+
+      - name: Build outputs
+        run: |
           case "${{ matrix.os }}" in
             "windows-latest")
               echo Setting win_artefact_path to ${{ matrix.triplet }}
-              echo "win_artefact_path=${{ matrix.triplet }}" >> "${GITHUB_OUTPUT}"
+              echo echo ::set-output name=win_artefact_path::${{ matrix.triplet }}
             ;;
             "ubuntu-latest")
               echo Setting lin_artefact_path to ${{ matrix.triplet }}
-              echo "lin_artefact_path=${{ matrix.triplet }}" >> "${GITHUB_OUTPUT}"
+              echo echo ::set-output name=lin_artefact_path::${{ matrix.triplet }}
             ;;
             "macos-latest")
               echo Setting osx_artefact_path to ${{ matrix.triplet }}
-              echo "osx_artefact_path=${{ matrix.triplet }}" >> "${GITHUB_OUTPUT}"
+              echo echo ::set-output name=osx_artefact_path::${{ matrix.triplet }}
             ;;
           esac
+
+      - name: Print outputs
+        run: |
+          echo Win output: ${{ steps.vars.output.win_artefact_path }}
+          echo Lin output: ${{ steps.vars.output.lin_artefact_path }}
+          echo OSX output: ${{ steps.vars.output.osx_artefact_path }}

@@ -46,7 +46,9 @@ jobs:
     needs: [ build, test ]
     with:
       artefacts: '[
-          "win": "${{ needs.build.outputs.win_artefact_path }}"
+          "win": "${{ needs.build.outputs.win_artefact_path }}",
+          "lin": "${{ needs.build.outputs.lin_artefact_path }}",
+          "osx": "${{ needs.build.outputs.osx_artefact_path }}"
         ]'
 
     strategy:
