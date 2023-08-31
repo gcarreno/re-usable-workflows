@@ -29,4 +29,5 @@ jobs:
         run: |
           echo App Name: ${{ inputs.app_name }}
           echo LPI Path: ${{ inputs.lpi_path }}
+          echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
