@@ -46,12 +46,12 @@ jobs:
         #os: [ubuntu-latest, macos-latest, windows-latest]
         os: [ubuntu-latest]
         include:
-          - os: windows-latest
-            triplet: ${{ fromJSON(inputs.triplets).win }}
           - os: ubuntu-latest
             triplet: ${{ fromJSON(inputs.triplets).lin }}
-          - os: macos-latest
-            triplet: ${{ fromJSON(inputs.triplets).osx }}
+#          - os: windows-latest
+#            triplet: ${{ fromJSON(inputs.triplets).win }}
+#          - os: macos-latest
+#            triplet: ${{ fromJSON(inputs.triplets).osx }}
 
     outputs:
       win_artefact_path: ${{ steps.vars.outputs.win_artefact_path }}
@@ -74,15 +74,15 @@ jobs:
           case "${{ matrix.os }}" in
             "windows-latest")
               echo Setting win_artefact_path to ${{ matrix.triplet }}
-              echo echo ::set-output name=win_artefact_path::${{ matrix.triplet }}
+              echo ::set-output name=win_artefact_path::${{ matrix.triplet }}
             ;;
             "ubuntu-latest")
               echo Setting lin_artefact_path to ${{ matrix.triplet }}
-              echo echo ::set-output name=lin_artefact_path::${{ matrix.triplet }}
+              echo ::set-output name=lin_artefact_path::${{ matrix.triplet }}
             ;;
             "macos-latest")
               echo Setting osx_artefact_path to ${{ matrix.triplet }}
-              echo echo ::set-output name=osx_artefact_path::${{ matrix.triplet }}
+              echo ::set-output name=osx_artefact_path::${{ matrix.triplet }}
             ;;
           esac
 
