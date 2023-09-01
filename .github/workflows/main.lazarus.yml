@@ -80,6 +80,7 @@ jobs:
     needs: [ build, test ]
     with:
       config: '{
+          "app-name": "helloworld"
           "win": "${{ needs.build.outputs.win-artefact-path }}",
           "lin": "${{ needs.build.outputs.lin-artefact-path }}",
           "osx": "${{ needs.build.outputs.osx-artefact-path }}"
@@ -87,16 +88,3 @@ jobs:
 
     strategy:
       fail-fast: true
-
-#{
-#  "include":[
-#    {
-#      "project":"foo",
-#      "config":"Debug"
-#    },
-#    {
-#      "project":"bar",
-#      "config":"Release"
-#    }
-#  ]
-#}
