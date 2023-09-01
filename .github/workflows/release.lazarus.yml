@@ -31,6 +31,7 @@ jobs:
       - name: Print some values
         run: |
           echo Config: ${{ inputs.config }}
+          echo Tag: ${{ fromJSON(inputs.config).tag }}
           echo GitHub Ref: ${{ github.ref }}
           echo GitHub Ref Name: ${{ github.ref_name }}
           echo GitHub Ref Type: ${{ github.ref_type }}
