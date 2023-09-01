@@ -16,7 +16,7 @@ on:
 jobs:
 
   build:
-    name: Build Application
+    name: 01 - Build Application
     uses: gcarreno/re-usable-workflows/.github/workflows/build.lazarus.yml@main
     with:
       config: '{
@@ -52,7 +52,7 @@ jobs:
       fail-fast: true
 
   test:
-    name: Test Application
+    name: 02 - Test Application
     uses: gcarreno/re-usable-workflows/.github/workflows/test.lazarus.yml@main
     with:
       config: '{
@@ -73,7 +73,7 @@ jobs:
       fail-fast: true
 
   release:
-    name: Create GitHub Release
+    name: 03 - Create GitHub Release
     uses: gcarreno/re-usable-workflows/.github/workflows/release.lazarus.yml@main
     needs: [ build, test ]
     with:
