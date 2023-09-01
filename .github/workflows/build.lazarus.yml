@@ -42,8 +42,16 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      _EXE_: ${{ matrix.os == 'windows-latest' && format('{0}.exe', fromJSON(inputs.config).app-name) || fromJSON(inputs.config).app-name }}
-      _EXE_TRIPLET_: ${{ matrix.os == 'windows-latest' && format('{0}-{1}.exe', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os]) || format('{0}-{1}', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os]) }}
+      _EXE_: ${{
+          matrix.os == 'windows-latest' &&
+          format('{0}.exe', fromJSON(inputs.config).app-name) ||
+          fromJSON(inputs.config).app-name
+        }}
+      _EXE_TRIPLET_: ${{
+          matrix.os == 'windows-latest' &&
+          format('{0}-{1}.exe', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os]) ||
+          format('{0}-{1}', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os])
+        }}
 
     strategy:
       matrix:
@@ -93,16 +101,16 @@ jobs:
         run: |
           case "${{ matrix.os }}" in
             "windows-latest")
-              echo Setting win-artefact-path to ${{ matrix.triplet }}
-              echo ::set-output name=win-artefact-path::${{ matrix.triplet }}
+              echo Setting win-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
+              echo "win-artefact-path=${{ fromJSON(inputs.config).triplets[matrix.os] }}" >> "$GIT_OUTPUT"
             ;;
             "ubuntu-latest")
-              echo Setting lin-artefact-path to ${{ matrix.triplet }}
-              echo ::set-output name=lin-artefact-path::${{ matrix.triplet }}
+              echo Setting lin-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
+              echo "lin-artefact-path=${{ fromJSON(inputs.config).triplets[matrix.os] }}" >> "$GIT_OUTPUT"
             ;;
             "macos-latest")
-              echo Setting osx-artefact-path to ${{ matrix.triplet }}
-              echo ::set-output name=osx-artefact-path::${{ matrix.triplet }}
+              echo Setting osx-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
+              echo "osx-artefact-path=${{ fromJSON(inputs.config).triplets[matrix.os] }}" >> "$GIT_OUTPUT"
             ;;
           esac
 
