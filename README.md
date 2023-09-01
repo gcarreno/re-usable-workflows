@@ -15,7 +15,7 @@ Collection of GitHub reusable workflows for a variety of languages
 ## Object Pascal: Lazarus
 
 - [main](.github/workflows/main.lazarus.yml)
-  This is the one you should copy to your Lazarus repo, and customise, because it calls the ones bellow
+  This is the one you should copy to your Lazarus repository, and customise, because it calls the ones bellow 
 - [build](.github/workflows/build.lazarus.yml)
   This one takes care of compiling the app itself and uploading the compiled binaries as an artefact. It's called remotely from the main one above
 - [test](.github/workflows/test.lazarus.yml)
