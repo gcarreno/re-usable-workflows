@@ -35,11 +35,11 @@ jobs:
           format('{0}.exe', fromJSON(inputs.config).app-name) ||
           fromJSON(inputs.config).app-name
         }}
-      _EXE_TRIPLET_: ${{
-          matrix.os == 'windows-latest' &&
-          format('{0}-{1}.exe', fromJSON(inputs.config).app-name, matrix.triplet) ||
-          format('{0}-{1}', fromJSON(inputs.config).app-name, matrix.triplet)
-        }}
+#      _EXE_TRIPLET_: ${{
+#          matrix.os == 'windows-latest' &&
+#          format('{0}-{1}.exe', fromJSON(inputs.config).app-name, matrix.triplet) ||
+#          format('{0}-{1}', fromJSON(inputs.config).app-name, matrix.triplet)
+#        }}
 
     strategy:
       matrix: ${{ fromJSON(inputs.config).matrix }}
@@ -55,28 +55,39 @@ jobs:
           echo "app-name=${{ fromJSON(inputs.config).app-name }}" >> "$GITHUB_ENV"
           echo "lpi-path=${{ fromJSON(inputs.config).lpi-path }}" >> "$GITHUB_ENV"
           echo "bin-path=${{ fromJSON(inputs.config).bin-path }}" >> "$GITHUB_ENV"
+          echo "build-mode=${{ fromJSON(inputs.config).build-mode }}" >> "$GITHUB_ENV"
 
-#      - name: Checkout Repository
-#        uses: actions/checkout@v3
-#        with:
-#          submodules: true
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
 
-#      - name: Install Lazarus
-#        uses: gcarreno/setup-lazarus@v3.2.7
-#        with:
-#          lazarus-version: ${{ matrix.lazarus-versions }}
-#          with-cache: false
+      - name: Install Lazarus
+        uses: gcarreno/setup-lazarus@v3.2.7
+        with:
+          lazarus-version: ${{ matrix.lazarus-versions }}
+          with-cache: false
 
-      - name: Print some values
-        run: |
-          echo Config: ${{ inputs.config }}
-          echo App Name: ${{ env.app-name }}
-          echo LPI Path: ${{ env.lpi-path }}/${{ env.app-name }}.lpi
-          echo BIN Path: ${{ env.bin-path }}/${{ env._EXE_ }}
-          echo BIN Triplet Path: ${{ env.bin-path }}/${{ env._EXE_TRIPLET_ }}
-          echo Matrix OS: ${{ matrix.os }}
-          echo Executable: ${{ env._EXE_ }}
-          echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
+      - name: Build the Main App
+        run: lazbuild -B --bm="${{ env.build-mode }}" "${{ env.lpi-path }}/${{ env.app-name }}.lpi"
+
+      - name: Upload binary
+        if: ${{ matrix.lazarus-versions == 'stable' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.app-name }}-${{ matrix.triplet }}
+          path: ${{env.bin-path}}/${{ env._EXE_ }}
+
+#      - name: Print some values
+#        run: |
+#          echo Config: ${{ inputs.config }}
+#          echo App Name: ${{ env.app-name }}
+#          echo LPI Path: ${{ env.lpi-path }}/${{ env.app-name }}.lpi
+#          echo BIN Path: ${{ env.bin-path }}/${{ env._EXE_ }}
+#          echo BIN Triplet Path: ${{ env.bin-path }}/${{ env._EXE_TRIPLET_ }}
+#          echo Matrix OS: ${{ matrix.os }}
+#          echo Executable: ${{ env._EXE_ }}
+#          echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
 
       - name: Build outputs
         id: vars
@@ -96,8 +107,8 @@ jobs:
             ;;
           esac
 
-      - name: Print outputs
-        run: |
-          echo Win output: ${{ steps.vars.outputs.win-artefact-path }}
-          echo Lin output: ${{ steps.vars.outputs.lin-artefact-path }}
-          echo OSX output: ${{ steps.vars.outputs.osx-artefact-path }}
+#      - name: Print outputs
+#        run: |
+#          echo Win output: ${{ steps.vars.outputs.win-artefact-path }}
+#          echo Lin output: ${{ steps.vars.outputs.lin-artefact-path }}
+#          echo OSX output: ${{ steps.vars.outputs.osx-artefact-path }}

@@ -23,6 +23,7 @@ jobs:
           "app-name": "helloworld",
           "lpi-path": "src",
           "bin-path": "bin",
+          "build-mode": "Release",
           "matrix": {
             "os": [
               "ubuntu-latest",
@@ -44,7 +45,8 @@ jobs:
               }
             ],
             "lazarus-versions": [
-              "stable"
+              "stable",
+              "2.0.12"
             ]
           }
         }'
@@ -60,6 +62,7 @@ jobs:
           "app-name": "helloworldtest",
           "lpi-path": "tests",
           "bin-path": "bin",
+          "build-mode": "Release",
           "what-tests": "all",
           "output-format": "plain",
           "matrix": {
@@ -67,6 +70,10 @@ jobs:
               "ubuntu-latest",
               "windows-latest",
               "macos-latest"
+            ],
+            "lazarus-versions": [
+              "stable",
+              "2.0.12"
             ]
           }
         }'
@@ -84,6 +91,7 @@ jobs:
       config: '{
           "app-name": "helloworld",
           "tag": "${{ github.ref_name }}",
+          "release-notes": "release-notes.md",
           "win": "${{ needs.build.outputs.win-artefact-path }}",
           "lin": "${{ needs.build.outputs.lin-artefact-path }}",
           "osx": "${{ needs.build.outputs.osx-artefact-path }}"

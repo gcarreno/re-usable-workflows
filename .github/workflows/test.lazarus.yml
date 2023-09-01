@@ -35,16 +35,34 @@ jobs:
           echo "app-name=${{ fromJSON(inputs.config).app-name }}" >> "$GITHUB_ENV"
           echo "lpi-path=${{ fromJSON(inputs.config).lpi-path }}" >> "$GITHUB_ENV"
           echo "bin-path=${{ fromJSON(inputs.config).bin-path }}" >> "$GITHUB_ENV"
+          echo "build-mode=${{ fromJSON(inputs.config).build-mode }}" >> "$GITHUB_ENV"
           echo "what-tests=${{ fromJSON(inputs.config).what-tests }}" >> "$GITHUB_ENV"
           echo "output-format=${{ fromJSON(inputs.config).output-format }}" >> "$GITHUB_ENV"
 
-      - name: Print some values
-        run: |
-          echo Config: ${{ inputs.config }}
-          echo App Name: ${{ env.app-name }}
-          echo LPI Path: ${{ env.lpi-path }}/${{ env.app-name }}.lpi
-          echo BIN Path: ${{ env.bin-path }}/${{ env._EXE_ }}
-          echo What tests: ${{ env.what-tests }}
-          echo Output format: ${{ env.output-format }}
-          echo Matrix OS: ${{ matrix.os }}
-          echo Executable: ${{ env._EXE_ }}
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Install Lazarus
+        uses: gcarreno/setup-lazarus@v3.2.7
+        with:
+          lazarus-version: ${{ matrix.lazarus-versions }}
+          with-cache: false
+
+      - name: Build the Main App
+        run: lazbuild -B --bm="${{ env.build-mode }}" "${{ env.lpi-path }}/${{ env.app-name }}.lpi"
+
+      - name: Run the tests
+        run: ${{ env.bin-path }}/${{ env._EXE_ }}
+
+#      - name: Print some values
+#        run: |
+#          echo Config: ${{ inputs.config }}
+#          echo App Name: ${{ env.app-name }}
+#          echo LPI Path: ${{ env.lpi-path }}/${{ env.app-name }}.lpi
+#          echo BIN Path: ${{ env.bin-path }}/${{ env._EXE_ }}
+#          echo What tests: ${{ env.what-tests }}
+#          echo Output format: ${{ env.output-format }}
+#          echo Matrix OS: ${{ matrix.os }}
+#          echo Executable: ${{ env._EXE_ }}
