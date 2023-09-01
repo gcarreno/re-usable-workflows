@@ -81,15 +81,15 @@ jobs:
           case "${{ matrix.os }}" in
             "windows-latest")
               echo Setting win-artefact-path to ${{ matrix.triplet }}
-              echo "win-artefact-path=${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
+              echo "win-artefact-path=${{ env.app-name }}-${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
             ;;
             "ubuntu-latest")
               echo Setting lin-artefact-path to ${{ matrix.os }}
-              echo "lin-artefact-path=${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
+              echo "lin-artefact-path=${{ env.app-name }}-${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
             ;;
             "macos-latest")
               echo Setting osx-artefact-path to ${{ matrix.os }}
-              echo "osx-artefact-path=${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
+              echo "osx-artefact-path=${{ env.app-name }}-${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
             ;;
           esac
 

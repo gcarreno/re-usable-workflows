@@ -42,5 +42,7 @@ jobs:
           echo Config: ${{ inputs.config }}
           echo App Name: ${{ env.app-name }}
           echo LPI Path: ${{ env.lpi-path }}/${{ env.app-name }}.lpi
+          echo What tests: ${{ env.what-tests }}
+          echo Output format: ${{ env.output-format }}
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
