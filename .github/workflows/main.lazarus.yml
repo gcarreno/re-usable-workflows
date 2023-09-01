@@ -43,7 +43,7 @@ jobs:
     name: Test Application
     uses: gcarreno/re-use-workflows/.github/workflows/test.lazarus.yml@$default-branch
     with:
-      app_name: helloworldtest
+      app-name: helloworldtest
       lpi_path: tests
       config: '{
           "app-name": "helloworld",
