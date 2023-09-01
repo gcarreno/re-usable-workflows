@@ -26,7 +26,7 @@ jobs:
             "include":[
               {
                 "os": "ubuntu-latest",
-                "triplet": "x86_64-linus"
+                "triplet": "x86_64-linux"
               }
             ],
             "lazarus-versions": [
@@ -65,11 +65,11 @@ jobs:
     uses: gcarreno/re-usable-workflows/.github/workflows/release.lazarus.yml@main
     needs: [ build, test ]
     with:
-      artefacts: '[
+      config: '{
           "win": "${{ needs.build.outputs.win-artefact-path }}",
           "lin": "${{ needs.build.outputs.lin-artefact-path }}",
           "osx": "${{ needs.build.outputs.osx-artefact-path }}"
-        ]'
+        }'
 
     strategy:
       fail-fast: true

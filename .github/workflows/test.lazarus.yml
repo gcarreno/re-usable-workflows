@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Build env from inputs.config
-        run: echo "cfg=fromJSON(inputs.config)" >> "$GITHUB_ENV"
+        run: echo "cfg=${{ fromJSON(inputs.config) }}" >> "$GITHUB_ENV"
 
       - name: Print some values
         run: |

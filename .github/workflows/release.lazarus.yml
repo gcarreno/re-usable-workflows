@@ -8,8 +8,8 @@ on:
 
   workflow_call:
     inputs:
-      artefacts:
-        description: A JSON object with the list of artefact from the build action
+      config:
+        description: A JSON object containing configuration values
         required: true
         type: string
 
@@ -20,9 +20,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Build env from inputs.config
+        run: echo "cfg=${{ fromJSON(inputs.config) }}" >> "$GITHUB_ENV"
+
       - name: Print some values
         run: |
-          echo Artefacts: ${{ inputs.artefacts }}
-          echo Win: ${{ fromJSON(inputs.artefacts).win }}
-          echo Lin: ${{ fromJSON(inputs.artefacts).lin }}
-          echo OSX: ${{ fromJSON(inputs.artefacts).osx }}
+          echo Artefacts: ${{ inputs.config }}
+          echo Win: ${{ env.cfg.win }}
+          echo Lin: ${{ env.cfg.lin }}
+          echo OSX: ${{ env.cfg.osx }}
