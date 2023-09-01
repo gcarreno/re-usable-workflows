@@ -23,6 +23,11 @@ jobs:
           "app-name": "helloworld",
           "lpi-path": "src",
           "matrix": {
+            "os": [
+              "ubuntu-latest",
+              "winodws-latest",
+              "macos-latest"
+            ]
             "include":[
               {
                 "os": "ubuntu-latest",
@@ -56,10 +61,10 @@ jobs:
           "what-tests": "all",
           "output-format": "plain",
           "matrix": {
-            "include":[
-              { "os": "ubuntu-latest" },
-              { "os": "windows-latest" },
-              { "os": "macos-latest" }
+            "os":[
+              "ubuntu-latest",
+              "windows-latest",
+              "macos-latest"
             ]
           }
         }'
