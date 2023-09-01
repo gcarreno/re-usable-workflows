@@ -16,7 +16,7 @@ on:
 jobs:
 
   test-app:
-    name: test-[${{ matrix.os }}][${{ matrix.lazarus-versions }}]
+    name: test [${{ matrix.os }}] [${{ matrix.lazarus-versions }}]
     runs-on: ${{ matrix.os }}
 
     env:
