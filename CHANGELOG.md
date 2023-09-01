@@ -1,8 +1,12 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+Notable changes on this release.
 
-## [unreleased]
+## [0.1-testing+12] - 2023-09-01
+
+### Features
+
+- Now with git cliff generated release notes
 
 ### Miscellaneous Tasks
 
