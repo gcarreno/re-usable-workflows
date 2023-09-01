@@ -6,18 +6,18 @@ permissions:
 on:
 
   push:
-    branches: [ $default-branch ]
+    branches: [ main ]
     tags: [ "*" ]
     paths-ignore: [ "README.md", "CHANGELOG.md", "release-notes.md" ]
 
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ main ]
 
 jobs:
 
   build:
     name: Build Application
-    uses: gcarreno/re-use-workflows/.github/workflows/build.lazarus.yml@$default-branch
+    uses: gcarreno/re-use-workflows/.github/workflows/build.lazarus.yml@main
     with:
       app-name: helloworld
       lpi-path: src
@@ -41,7 +41,7 @@ jobs:
 
   test:
     name: Test Application
-    uses: gcarreno/re-use-workflows/.github/workflows/test.lazarus.yml@$default-branch
+    uses: gcarreno/re-use-workflows/.github/workflows/test.lazarus.yml@main
     with:
       app-name: helloworldtest
       lpi_path: tests
@@ -58,7 +58,7 @@ jobs:
 
   release:
     name: Create GitHub Release
-    uses: gcarreno/re-use-workflows/.github/workflows/release.lazarus.yml@$default-branch
+    uses: gcarreno/re-use-workflows/.github/workflows/release.lazarus.yml@main
     needs: [ build, test ]
     with:
       artefacts: '[
