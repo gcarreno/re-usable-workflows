@@ -1,6 +1,34 @@
-# Changelog
+# Release Notes
 
 Notable changes on this release.
+
+## [0.2] - 2023-09-01
+
+### Features
+
+- Let's `--current`
+
+## [0.1-testing+15] - 2023-09-01
+
+### Features
+
+- Following `body` example, not `body_path`
+
+## [0.1-testing+14] - 2023-09-01
+
+### Bug Fixes
+
+- Let's try with depth 0
+
+## [0.1-testing+13] - 2023-09-01
+
+### Features
+
+- New header and description for releases
+
+### Miscellaneous Tasks
+
+- Adding new CHANGELOG.md
 
 ## [0.1-testing+12] - 2023-09-01
 
