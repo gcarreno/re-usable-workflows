@@ -17,7 +17,7 @@ jobs:
 
   build:
     name: Build Application
-    uses: gcarreno/re-use-workflows/.github/workflows/build.lazarus.yml@main
+    uses: ./.github/workflows/build.lazarus.yml
     with:
       app-name: helloworld
       lpi-path: src
@@ -41,10 +41,10 @@ jobs:
 
   test:
     name: Test Application
-    uses: gcarreno/re-use-workflows/.github/workflows/test.lazarus.yml@main
+    uses: ./.github/workflows/test.lazarus.yml
     with:
       app-name: helloworldtest
-      lpi_path: tests
+      lpi-path: tests
       config: '{
           "app-name": "helloworld",
           "lpi-path": "tests",
@@ -58,13 +58,13 @@ jobs:
 
   release:
     name: Create GitHub Release
-    uses: gcarreno/re-use-workflows/.github/workflows/release.lazarus.yml@main
+    uses: gcarreno/re-usable-workflows/.github/workflows/release.lazarus.yml@main
     needs: [ build, test ]
     with:
       artefacts: '[
-          "win": "${{ needs.build.outputs.win_artefact_path }}",
-          "lin": "${{ needs.build.outputs.lin_artefact_path }}",
-          "osx": "${{ needs.build.outputs.osx_artefact_path }}"
+          "win": "${{ needs.build.outputs.win-artefact-path }}",
+          "lin": "${{ needs.build.outputs.lin-artefact-path }}",
+          "osx": "${{ needs.build.outputs.osx-artefact-path }}"
         ]'
 
     strategy:
