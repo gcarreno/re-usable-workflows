@@ -52,7 +52,7 @@ jobs:
                 "triplet": "x86_64-linux"
               }
             ]
-          }
+          },
           "what-tests": "all",
           "output-format": "plain"
         }'
