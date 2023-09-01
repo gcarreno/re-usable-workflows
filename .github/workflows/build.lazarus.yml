@@ -8,18 +8,6 @@ on:
 
   workflow_call:
     inputs:
-      app-name:
-        description: Application Name
-        required: true
-        type: string
-      lpi-path:
-        description: Path to the *.lpi file
-        required: true
-        type: string
-      triplets:
-        description: A JSON object containing the triplets
-        required: true
-        type: string
       config:
         description: A JSON object containing configuration values
         required: true
@@ -49,8 +37,8 @@ jobs:
         }}
       _EXE_TRIPLET_: ${{
           matrix.os == 'windows-latest' &&
-          format('{0}-{1}.exe', inputs.app-name, fromJSON(inputs.config).triplets.(matrix.os)) ||
-          format('{0}-{1}', inputs.app-name, fromJSON(inputs.config).triplets.(matrix.os))
+          format('{0}-{1}.exe', fromJSON(inputs.config).app-name, fromJSON(inputs.config).triplets.ubuntu-latest) ||
+          format('{0}-{1}', fromJSON(inputs.config).app-name, fromJSON(inputs.config).triplets.ubuntu-latest)
         }}
 
     strategy:
@@ -90,7 +78,7 @@ jobs:
         run: |
           echo App Name: ${{ fromJSON(inputs.config).app-name }}
           echo LPI Path: ${{ fromJSON(inputs.config).lpi-path }}/${{ fromJSON(inputs.config).app-name }}.lpi
-          echo Triplets: ${{ inputs.triplets }}
+          echo Triplets: ${{ fromJSON(inputs.config).triplets }}
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
@@ -102,15 +90,15 @@ jobs:
           case "${{ matrix.os }}" in
             "windows-latest")
               echo Setting win-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
-              echo "win-artefact-path=${{ fromJSON(inputs.config).triplets[matrix.os] }}" >> "$GIT_OUTPUT"
+              echo "win-artefact-path=${{ fromJSON(inputs.config).triplets.windows-latest }}" >> "$GIT_OUTPUT"
             ;;
             "ubuntu-latest")
               echo Setting lin-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
-              echo "lin-artefact-path=${{ fromJSON(inputs.config).triplets[matrix.os] }}" >> "$GIT_OUTPUT"
+              echo "lin-artefact-path=${{ fromJSON(inputs.config).triplets.ubuntu-latest }}" >> "$GIT_OUTPUT"
             ;;
             "macos-latest")
               echo Setting osx-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
-              echo "osx-artefact-path=${{ fromJSON(inputs.config).triplets[matrix.os] }}" >> "$GIT_OUTPUT"
+              echo "osx-artefact-path=${{ fromJSON(inputs.config).triplets.macos-latest }}" >> "$GIT_OUTPUT"
             ;;
           esac
 

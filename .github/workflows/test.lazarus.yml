@@ -8,14 +8,6 @@ on:
 
   workflow_call:
     inputs:
-      app-name:
-        description: Application Name
-        required: true
-        type: string
-      lpi-path:
-        description: Path to the "*.lpi" file
-        required: true
-        type: string
       config:
         description: A JSON object containing configuration values
         required: true
@@ -43,8 +35,8 @@ jobs:
     steps:
       - name: Print some values
         run: |
-          echo App Name: ${{ inputs.app-name }}
-          echo LPI Path: ${{ inputs.lpi-path }}/${{ inputs.app-name }}.lpi
+          echo App Name: ${{ fromJSON(inputs.config).app-name }}
+          echo LPI Path: ${{ fromJSON(inputs.config).lpi-path }}/${{ fromJSON(inputs.config).app-name }}.lpi
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Config: ${{ inputs.config }}
