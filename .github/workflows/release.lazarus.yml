@@ -64,7 +64,7 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v0.1.15
         with:
-          name: ${{ env.app-name }} ${{ env.tag }}
+          name: Lazarus ${{ env.app-name }} ${{ env.tag }}
           body_path: ${{ env.release-notes }}
           files: |
             *.tgz
