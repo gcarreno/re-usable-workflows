@@ -78,15 +78,15 @@ jobs:
           case "${{ matrix.os }}" in
             "windows-latest")
               echo Setting win-artefact-path to ${{ matrix.os }}
-              echo "win-artefact-path=${{ matrix.os }}" >> "$GIT_OUTPUT"
+              echo "win-artefact-path=${{ matrix.os }}" >> "$GITHUB_OUTPUT"
             ;;
             "ubuntu-latest")
               echo Setting lin-artefact-path to ${{ matrix.os }}
-              echo "lin-artefact-path=${{ matrix.os }}" >> "$GIT_OUTPUT"
+              echo "lin-artefact-path=${{ matrix.os }}" >> "$GITHUB_OUTPUT"
             ;;
             "macos-latest")
               echo Setting osx-artefact-path to ${{ matrix.os }}
-              echo "osx-artefact-path=${{ matrix.os }}" >> "$GIT_OUTPUT"
+              echo "osx-artefact-path=${{ matrix.os }}" >> "$GITHUB_OUTPUT"
             ;;
           esac
 
