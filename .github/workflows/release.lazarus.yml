@@ -31,6 +31,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Download the Release binaries
         uses: actions/download-artifact@v3
@@ -65,7 +67,7 @@ jobs:
         uses: orhun/git-cliff-action@v2
         with:
           config: cliff.toml
-          args: --verbose --latest
+          args: --verbose
         env:
           OUTPUT: ${{ env.release-notes }}
 
