@@ -1,5 +1,8 @@
 name: Lazarus Build Workflow
 
+env:
+  cfg: ${{ fromJSON(inputs.config) }}
+
 defaults:
   run:
     shell: bash
@@ -37,25 +40,12 @@ jobs:
         }}
       _EXE_TRIPLET_: ${{
           matrix.os == 'windows-latest' &&
-          format('{0}-{1}.exe', fromJSON(inputs.config).app-name, fromJSON(inputs.config).triplets.ubuntu-latest) ||
-          format('{0}-{1}', fromJSON(inputs.config).app-name, fromJSON(inputs.config).triplets.ubuntu-latest)
+          format('{0}-{1}.exe', fromJSON(inputs.config).app-name, matrix.os) ||
+          format('{0}-{1}', fromJSON(inputs.config).app-name, matrix.os)
         }}
 
     strategy:
-      matrix:
-        #os: [ubuntu-latest, macos-latest, windows-latest]
-        #os: [ubuntu-latest]
-        os: ${{ fromJSON(inputs.config).os }}
-        #lazarus-versions: [ stable, 2.0.12, 2.0.10 ]
-        #lazarus-versions: [ stable ]
-        lazarus-versions: ${{ fromJSON(inputs.config).lazarus-versions }}
-#        include:
-#          - os: ubuntu-latest
-#            triplet: ${{ fromJSON(inputs.triplets).lin }}
-#          - os: windows-latest
-#            triplet: ${{ fromJSON(inputs.triplets).win }}
-#          - os: macos-latest
-#            triplet: ${{ fromJSON(inputs.triplets).osx }}
+      matrix: ${{ fromJSON(inputs.config).matrix }}
 
     outputs:
       win-artefact-path: ${{ steps.vars.outputs.win-artefact-path }}
@@ -63,26 +53,24 @@ jobs:
       osx-artefact-path: ${{ steps.vars.outputs.osx-artefact-path }}
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          submodules: true
+#      - name: Checkout Repository
+#        uses: actions/checkout@v3
+#        with:
+#          submodules: true
 
-      - name: Install Lazarus
-        uses: gcarreno/setup-lazarus@v3.2.7
-        with:
-          lazarus-version: ${{ matrix.lazarus-versions }}
-          with-cache: false
+#      - name: Install Lazarus
+#        uses: gcarreno/setup-lazarus@v3.2.7
+#        with:
+#          lazarus-version: ${{ matrix.lazarus-versions }}
+#          with-cache: false
 
       - name: Print some values
         run: |
-          echo App Name: ${{ fromJSON(inputs.config).app-name }}
-          echo LPI Path: ${{ fromJSON(inputs.config).lpi-path }}/${{ fromJSON(inputs.config).app-name }}.lpi
-          echo Triplets: ${{ fromJSON(inputs.config).triplets }}
+          echo App Name: ${{ env.cfg.app-name }}
+          echo LPI Path: ${{ env.cfg.lpi-path }}/${{ env.cfg.app-name }}.lpi
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
-          echo
 
       - name: Build outputs
         id: vars

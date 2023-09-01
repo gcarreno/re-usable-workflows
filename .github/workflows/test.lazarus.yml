@@ -27,10 +27,7 @@ jobs:
         }}
 
     strategy:
-      matrix:
-        #os: [ubuntu-latest, macos-latest, windows-latest]
-        #os: [ubuntu-latest]
-        os: ${{ fromJSON(inputs.config).os }}
+      matrix: ${{ fromJSON(inputs.config).matrix }}
 
     steps:
       - name: Print some values

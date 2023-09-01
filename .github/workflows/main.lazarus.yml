@@ -22,10 +22,16 @@ jobs:
       config: '{
           "app-name": "helloworld",
           "lpi-path": "src",
-          "os": ["ubuntu-latest"],
-          "lazarus-versions": ["stable"],
-          "triplets": {
-            "ubuntu-latest": "x86_64-lin"
+          "matrix": {
+            "include":[
+              {
+                "os": "ubuntu-latest",
+                "triplet": "x86_64-linus"
+              }
+            ],
+            "lazarus-versions": [
+              "stable"
+            ]
           }
         }'
 
@@ -39,7 +45,14 @@ jobs:
       config: '{
           "app-name": "helloworld",
           "lpi-path": "tests",
-          "os": ["ubuntu-latest"],
+          "matrix": {
+            "include":[
+              {
+                "os": "ubuntu-latest",
+                "triplet": "x86_64-linux"
+              }
+            ]
+          }
           "what-tests": "all",
           "output-format": "plain"
         }'
@@ -60,3 +73,16 @@ jobs:
 
     strategy:
       fail-fast: true
+
+#{
+#  "include":[
+#    {
+#      "project":"foo",
+#      "config":"Debug"
+#    },
+#    {
+#      "project":"bar",
+#      "config":"Release"
+#    }
+#  ]
+#}
