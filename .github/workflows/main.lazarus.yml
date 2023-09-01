@@ -27,7 +27,7 @@ jobs:
               "ubuntu-latest",
               "winodws-latest",
               "macos-latest"
-            ]
+            ],
             "include":[
               {
                 "os": "ubuntu-latest",
