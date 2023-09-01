@@ -28,11 +28,11 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      _EXE_: ${{
-        matrix.os == 'windows-latest' &&
-        format('{0}.exe', fromJSON(inputs.config).app_name) ||
-        fromJSON(inputs.config).app_name
-      }}
+      _EXE_: '${{
+          matrix.os == 'windows-latest' &&
+          format('{0}.exe', fromJSON(inputs.config).app_name) ||
+          fromJSON(inputs.config).app_name
+        }}'
 
     strategy:
       matrix:
