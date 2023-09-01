@@ -19,12 +19,21 @@ jobs:
     name: Build Application
     uses: gcarreno/re-use-workflows/.github/workflows/build.lazarus.yml@$default-branch
     with:
-      app_name: MyApp
-      lpi_path: src/MyApp.lpi
+      app-name: helloworld
+      lpi-path: src
       triplets: '{
           "win": "x86_64-win64",
           "lin": "x86_64-linux",
           "osx": "x86_64-darwin"
+        }'
+      config: '{
+          "app-name": "helloworld",
+          "lpi-path": "src",
+          "os": ["ubuntu-latest"],
+          "lazarus-versions": ["stable"],
+          "triplets": [
+            "ubuntu-latest": "x86_64-lin"
+          ]
         }'
 
     strategy:
@@ -34,8 +43,14 @@ jobs:
     name: Test Application
     uses: gcarreno/re-use-workflows/.github/workflows/test.lazarus.yml@$default-branch
     with:
-      app_name: MyApp
-      lpi_path: tests/MyAppTest.lpi
+      app_name: helloworldtest
+      lpi_path: tests
+      config: '{
+          "app-name": "helloworld",
+          "lpi-path": "tests",
+          "what-tests": "all",
+          "output-format": "plain"
+        }'
 
     strategy:
       fail-fast: true

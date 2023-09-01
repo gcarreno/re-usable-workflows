@@ -12,8 +12,12 @@ on:
         description: Application Name
         required: true
         type: string
-      lpi_path:
+      lpi-path:
         description: Path to the "*.lpi" file
+        required: true
+        type: string
+      config:
+        description: A JSON object containing configuration values
         required: true
         type: string
 
@@ -24,7 +28,11 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      _EXE_: ${{ matrix.os == 'windows-latest' && format('{0}.exe', inputs.app_name) || inputs.app_name }}
+      _EXE_: ${{
+        matrix.os == 'windows-latest' &&
+        format('{0}.exe', fromJSON(inputs.config).app_name) ||
+        fromJSON(inputs.config).app_name
+      }}
 
     strategy:
       matrix:
@@ -35,6 +43,7 @@ jobs:
       - name: Print some values
         run: |
           echo App Name: ${{ inputs.app_name }}
-          echo LPI Path: ${{ inputs.lpi_path }}
+          echo LPI Path: ${{ inputs.lpi-path }}/${{ inputs.app-name }}.lpi
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
+          echo Config: ${{ inputs.config }}

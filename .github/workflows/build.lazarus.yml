@@ -8,11 +8,11 @@ on:
 
   workflow_call:
     inputs:
-      app_name:
+      app-name:
         description: Application Name
         required: true
         type: string
-      lpi_path:
+      lpi-path:
         description: Path to the *.lpi file
         required: true
         type: string
@@ -20,16 +20,20 @@ on:
         description: A JSON object containing the triplets
         required: true
         type: string
+      config:
+        description: A JSON object containing configuration values
+        required: true
+        type: string
     outputs:
-      win_artefact_path:
+      win-artefact-path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build-app.outputs.win_artefact_path }}
-      lin_artefact_path:
+        value: ${{ jobs.build-app.outputs.win-artefact-path }}
+      lin-artefact-path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build-app.outputs.lin_artefact_path }}
-      osx_artefact_path:
+        value: ${{ jobs.build-app.outputs.lin-artefact-path }}
+      osx-artefact-path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build-app.outputs.osx_artefact_path }}
+        value: ${{ jobs.build-app.outputs.osx-artefact-path }}
 
 jobs:
 
@@ -38,56 +42,79 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      _EXE_: ${{ matrix.os == 'windows-latest' && format('{0}.exe', inputs.app_name) || inputs.app_name }}
-      _EXE_TRIPLET_: ${{ matrix.os == 'windows-latest' && format('{0}-{1}.exe', inputs.app_name, matrix.triplet) || format('{0}-{1}', inputs.app_name, matrix.triplet) }}
+      _EXE_: ${{ matrix.os == 'windows-latest' &&
+        format('{0}.exe', fromJSON(inputs.config).app-name) ||
+        fromJSON(inputs.config).app-name
+      }}
+      _EXE_TRIPLET_: ${{
+        matrix.os == 'windows-latest' &&
+        format('{0}-{1}.exe', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os]) ||
+        format('{0}-{1}', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os])
+      }}
 
     strategy:
       matrix:
         #os: [ubuntu-latest, macos-latest, windows-latest]
-        os: [ubuntu-latest]
-        include:
-          - os: ubuntu-latest
-            triplet: ${{ fromJSON(inputs.triplets).lin }}
+        #os: [ubuntu-latest]
+        os: ${{ fromJSON(inputs.config).os }}
+        #lazarus-versions: [ stable, 2.0.12, 2.0.10 ]
+        #lazarus-versions: [ stable ]
+        lazarus-versions: ${{ fromJSON(inputs.config).lazarus-versions }}
+#        include:
+#          - os: ubuntu-latest
+#            triplet: ${{ fromJSON(inputs.triplets).lin }}
 #          - os: windows-latest
 #            triplet: ${{ fromJSON(inputs.triplets).win }}
 #          - os: macos-latest
 #            triplet: ${{ fromJSON(inputs.triplets).osx }}
 
     outputs:
-      win_artefact_path: ${{ steps.vars.outputs.win_artefact_path }}
-      lin_artefact_path: ${{ steps.vars.outputs.lin_artefact_path }}
-      osx_artefact_path: ${{ steps.vars.outputs.osx_artefact_path }}
+      win-artefact-path: ${{ steps.vars.outputs.win-artefact-path }}
+      lin-artefact-path: ${{ steps.vars.outputs.lin-artefact-path }}
+      osx-artefact-path: ${{ steps.vars.outputs.osx-artefact-path }}
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Install Lazarus
+        uses: gcarreno/setup-lazarus@v3.2.7
+        with:
+          lazarus-version: ${{ matrix.lazarus-versions }}
+          with-cache: false
+
       - name: Print some values
         run: |
-          echo App Name: ${{ inputs.app_name }}
-          echo LPI Path: ${{ inputs.app_name }}
+          echo App Name: ${{ fromJSON(inputs.config).app-name }}
+          echo LPI Path: ${{ fromJSON(inputs.config).lpi-path }}/${{ fromJSON(inputs.config).app-name }}.lpi
           echo Triplets: ${{ inputs.triplets }}
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
+          echo
 
       - name: Build outputs
         id: vars
         run: |
           case "${{ matrix.os }}" in
             "windows-latest")
-              echo Setting win_artefact_path to ${{ matrix.triplet }}
-              echo ::set-output name=win_artefact_path::${{ matrix.triplet }}
+              echo Setting win-artefact-path to ${{ matrix.triplet }}
+              echo ::set-output name=win-artefact-path::${{ matrix.triplet }}
             ;;
             "ubuntu-latest")
-              echo Setting lin_artefact_path to ${{ matrix.triplet }}
-              echo ::set-output name=lin_artefact_path::${{ matrix.triplet }}
+              echo Setting lin-artefact-path to ${{ matrix.triplet }}
+              echo ::set-output name=lin-artefact-path::${{ matrix.triplet }}
             ;;
             "macos-latest")
-              echo Setting osx_artefact_path to ${{ matrix.triplet }}
-              echo ::set-output name=osx_artefact_path::${{ matrix.triplet }}
+              echo Setting osx-artefact-path to ${{ matrix.triplet }}
+              echo ::set-output name=osx-artefact-path::${{ matrix.triplet }}
             ;;
           esac
 
       - name: Print outputs
         run: |
-          echo Win output: ${{ steps.vars.outputs.win_artefact_path }}
-          echo Lin output: ${{ steps.vars.outputs.lin_artefact_path }}
-          echo OSX output: ${{ steps.vars.outputs.osx_artefact_path }}
+          echo Win output: ${{ steps.vars.outputs.win-artefact-path }}
+          echo Lin output: ${{ steps.vars.outputs.lin-artefact-path }}
+          echo OSX output: ${{ steps.vars.outputs.osx-artefact-path }}
