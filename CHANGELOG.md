@@ -2,6 +2,12 @@
 
 Notable changes on this release.
 
+## [0.3] - 2023-09-01
+
+### Features
+
+- Using `--latest`
+
 ## [0.2] - 2023-09-01
 
 ### Features
