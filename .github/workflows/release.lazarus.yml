@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Build env from inputs.config
         run: |
-          echo "tag=${GITHUB_REF#refs/*/} >> "$GITHUB_ENV"
+          echo "tag=${GITHUB_REF#refs/*/}" >> "$GITHUB_ENV"
           echo "win=${{ fromJSON(inputs.config).win }}" >> "$GITHUB_ENV"
           echo "lin=${{ fromJSON(inputs.config).lin }}" >> "$GITHUB_ENV"
           echo "osx=${{ fromJSON(inputs.config).osx }}" >> "$GITHUB_ENV"
