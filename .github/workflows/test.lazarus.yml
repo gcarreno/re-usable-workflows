@@ -31,12 +31,16 @@ jobs:
 
     steps:
       - name: Build env from inputs.config
-        run: echo "cfg=${{ fromJSON(inputs.config) }}" >> "$GITHUB_ENV"
+        run: |
+          echo "app-name=${{ fromJSON(inputs.config).app-name }}" >> "$GITHUB_ENV"
+          echo "lpi-path=${{ fromJSON(inputs.config).lpi-path }}" >> "$GITHUB_ENV"
+          echo "what-tests=${{ fromJSON(inputs.config).what-tests }}" >> "$GITHUB_ENV"
+          echo "output-format=${{ fromJSON(inputs.config).output-format }}" >> "$GITHUB_ENV"
 
       - name: Print some values
         run: |
-          echo App Name: ${{ env.cfg.app-name }}
-          echo LPI Path: ${{ env.cfg.lpi-path }}/${{ env.cfg.app-name }}.lpi
+          echo Config: ${{ inputs.config }}
+          echo App Name: ${{ env.app-name }}
+          echo LPI Path: ${{ env.lpi-path }}/${{ env.app-name }}.lpi
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
-          echo Config: ${{ inputs.config }}

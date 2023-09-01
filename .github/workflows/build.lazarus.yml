@@ -51,7 +51,9 @@ jobs:
 
     steps:
       - name: Build env from inputs.config
-        run: echo "cfg=${{ fromJSON(inputs.config) }}" >> "$GITHUB_ENV"
+        run: |
+          echo "app-name=${{ fromJSON(inputs.config).app-name }}" >> "$GITHUB_ENV"
+          echo "lpi-path=${{ fromJSON(inputs.config).lpi-path }}" >> "$GITHUB_ENV"
 
 #      - name: Checkout Repository
 #        uses: actions/checkout@v3
@@ -66,8 +68,9 @@ jobs:
 
       - name: Print some values
         run: |
-          echo App Name: ${{ env.cfg.app-name }}
-          echo LPI Path: ${{ env.cfg.lpi-path }}/${{ env.cfg.app-name }}.lpi
+          echo Config: ${{ inputs.config }}
+          echo App Name: ${{ env.app-name }}
+          echo LPI Path: ${{ env.lpi-path }}/${{ env.app-name }}.lpi
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Executable with triplet: ${{ env._EXE_TRIPLET_ }}
@@ -77,16 +80,16 @@ jobs:
         run: |
           case "${{ matrix.os }}" in
             "windows-latest")
-              echo Setting win-artefact-path to ${{ matrix.os }}
-              echo "win-artefact-path=${{ matrix.os }}" >> "$GITHUB_OUTPUT"
+              echo Setting win-artefact-path to ${{ matrix.triplet }}
+              echo "win-artefact-path=${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
             ;;
             "ubuntu-latest")
               echo Setting lin-artefact-path to ${{ matrix.os }}
-              echo "lin-artefact-path=${{ matrix.os }}" >> "$GITHUB_OUTPUT"
+              echo "lin-artefact-path=${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
             ;;
             "macos-latest")
               echo Setting osx-artefact-path to ${{ matrix.os }}
-              echo "osx-artefact-path=${{ matrix.os }}" >> "$GITHUB_OUTPUT"
+              echo "osx-artefact-path=${{ matrix.triplet }}" >> "$GITHUB_OUTPUT"
             ;;
           esac
 

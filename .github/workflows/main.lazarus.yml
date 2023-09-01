@@ -45,6 +45,8 @@ jobs:
       config: '{
           "app-name": "helloworld",
           "lpi-path": "tests",
+          "what-tests": "all",
+          "output-format": "plain",
           "matrix": {
             "include":[
               {
@@ -52,9 +54,7 @@ jobs:
                 "triplet": "x86_64-linux"
               }
             ]
-          },
-          "what-tests": "all",
-          "output-format": "plain"
+          }
         }'
 
     strategy:

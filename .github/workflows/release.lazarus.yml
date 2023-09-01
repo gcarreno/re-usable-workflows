@@ -25,7 +25,7 @@ jobs:
 
       - name: Print some values
         run: |
-          echo Artefacts: ${{ inputs.config }}
-          echo Win: ${{ env.cfg.win }}
-          echo Lin: ${{ env.cfg.lin }}
-          echo OSX: ${{ env.cfg.osx }}
+          echo Config: ${{ inputs.config }}
+          echo Win: ${{ env.win }}
+          echo Lin: ${{ env.lin }}
+          echo OSX: ${{ env.osx }}
