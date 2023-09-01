@@ -42,15 +42,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      _EXE_: '${{ matrix.os == 'windows-latest' &&
-          format('{0}.exe', fromJSON(inputs.config).app-name) ||
-          fromJSON(inputs.config).app-name
-        }}'
-      _EXE_TRIPLET_: '${{
-          matrix.os == 'windows-latest' &&
-          format('{0}-{1}.exe', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os]) ||
-          format('{0}-{1}', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os])
-        }}'
+      _EXE_: ${{ matrix.os == 'windows-latest' && format('{0}.exe', fromJSON(inputs.config).app-name) || fromJSON(inputs.config).app-name }}
+      _EXE_TRIPLET_: ${{ matrix.os == 'windows-latest' && format('{0}-{1}.exe', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os]) || format('{0}-{1}', inputs.app-name, fromJSON(inputs.config).triplets[matrix.os]) }}
 
     strategy:
       matrix:
