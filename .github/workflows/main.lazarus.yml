@@ -73,7 +73,7 @@ jobs:
       fail-fast: true
 
   release:
-    if: contains(github.ref, '/tags/')
+    if: contains(github.ref_type, 'tag')
 
     name: 03 - Create GitHub Release
     uses: gcarreno/re-usable-workflows/.github/workflows/release.lazarus.yml@main
