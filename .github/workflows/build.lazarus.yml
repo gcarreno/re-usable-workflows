@@ -49,8 +49,8 @@ jobs:
         }}
       _EXE_TRIPLET_: ${{
           matrix.os == 'windows-latest' &&
-          format('{0}-{1}.exe', inputs.app-name, fromJSON(inputs.config).triplets['ubuntu-latest']) ||
-          format('{0}-{1}', inputs.app-name, fromJSON(inputs.config).triplets['ubuntu-latest'])
+          format('{0}-{1}.exe', inputs.app-name, fromJSON(inputs.config).triplets.(matrix.os)) ||
+          format('{0}-{1}', inputs.app-name, fromJSON(inputs.config).triplets.(matrix.os))
         }}
 
     strategy:

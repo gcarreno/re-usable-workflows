@@ -17,7 +17,7 @@ jobs:
 
   build:
     name: Build Application
-    uses: ./.github/workflows/build.lazarus.yml
+    uses: gcarreno/re-usable-workflows/.github/workflows/build.lazarus.yml@main
     with:
       app-name: helloworld
       lpi-path: src
@@ -31,9 +31,9 @@ jobs:
           "lpi-path": "src",
           "os": ["ubuntu-latest"],
           "lazarus-versions": ["stable"],
-          "triplets": [
+          "triplets": {
             "ubuntu-latest": "x86_64-lin"
-          ]
+          }
         }'
 
     strategy:
@@ -41,7 +41,7 @@ jobs:
 
   test:
     name: Test Application
-    uses: ./.github/workflows/test.lazarus.yml
+    uses: gcarreno/re-usable-workflows/.github/workflows/test.lazarus.yml@main
     with:
       app-name: helloworldtest
       lpi-path: tests
