@@ -91,7 +91,6 @@ jobs:
       config: '{
           "app-name": "helloworld",
           "tag": "${{ github.ref_name }}",
-          "release-notes": "release-notes.md",
           "win": "${{ needs.build.outputs.win-artefact-path }}",
           "lin": "${{ needs.build.outputs.lin-artefact-path }}",
           "osx": "${{ needs.build.outputs.osx-artefact-path }}"

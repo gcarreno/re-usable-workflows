@@ -24,15 +24,12 @@ jobs:
         run: |
           echo "app-name=${{ fromJSON(inputs.config).app-name }}" >> "$GITHUB_ENV"
           echo "tag=${{ fromJSON(inputs.config).tag }}" >> "$GITHUB_ENV"
-          echo "release-notes=${{ fromJSON(inputs.config).release-notes }}" >> "$GITHUB_ENV"
           echo "win=${{ fromJSON(inputs.config).win }}" >> "$GITHUB_ENV"
           echo "lin=${{ fromJSON(inputs.config).lin }}" >> "$GITHUB_ENV"
           echo "osx=${{ fromJSON(inputs.config).osx }}" >> "$GITHUB_ENV"
 
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Download the Release binaries
         uses: actions/download-artifact@v3
@@ -64,18 +61,19 @@ jobs:
           fi
 
       - name: Generate Release Notes
+        id: git-cliff
         uses: orhun/git-cliff-action@v2
         with:
           config: cliff.toml
-          args: --verbose
+          args: -vv --latest --strip header
         env:
-          OUTPUT: ${{ env.release-notes }}
+          OUTPUT: CHANGES.md
 
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v0.1.15
+        uses: softprops/action-gh-release@v1
         with:
           name: Lazarus ${{ env.app-name }} ${{ env.tag }}
-          body_path: ${{ env.release-notes }}
+          body: ${{ steps.git-cliff.outputs.content }}
           files: |
             *.tgz
             *.zip
