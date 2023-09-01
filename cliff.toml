@@ -8,7 +8,7 @@
 [changelog]
 # changelog header
 header = """
-# Changelog\n
+# Release Notes\n
 Notable changes on this release.\n
 """
 # template for the changelog body
