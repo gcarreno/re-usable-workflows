@@ -1,6 +1,7 @@
 # GitHub Reusable Workflows
-[![Lazarus Main Workflow](https://github.com/gcarreno/re-usable-workflows/workflows/main.lazarus.yml/badge.svg?branch=main)](https://github.com/gcarreno/re-usable-workflows/actions)
-[![C++ Main Workflow](https://github.com/gcarreno/re-usable-workflows/workflows/main.cpp.yml/badge.svg?branch=main)](https://github.com/gcarreno/re-usable-workflows/actions)
+[![Lazarus Main Workflow](https://github.com/gcarreno/re-usable-workflows/actions/workflows/main.lazarus.yml/badge.svg?branch=main)](https://github.com/gcarreno/re-usable-workflows/actions)
+
+[![C++ Main Workflow](https://github.com/gcarreno/re-usable-workflows/actions/workflows/main.cpp.yml/badge.svg?branch=main)](https://github.com/gcarreno/re-usable-workflows/actions)
 
 [![Supports Windows](https://img.shields.io/badge/support-Windows-blue?logo=Windows)](https://github.com/gcarreno/re-usable-workflows/releases/latest)
 [![Supprts Linux](https://img.shields.io/badge/support-Linux-yellow?logo=Linux)](https://github.com/gcarreno/re-usable-workflows/releases/latest)
