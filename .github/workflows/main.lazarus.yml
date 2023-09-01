@@ -1,7 +1,5 @@
 name: Lazarus Main Workflow
 
-run-name: Triggered by @${{ github.actor }}
-
 permissions:
   contents: write
 
@@ -75,7 +73,7 @@ jobs:
       fail-fast: true
 
   release:
-    if: github.type == 'tag'
+    if: ${{ github.type == 'tag' }}
 
     name: 03 - Create GitHub Release
     uses: gcarreno/re-usable-workflows/.github/workflows/release.lazarus.yml@main
