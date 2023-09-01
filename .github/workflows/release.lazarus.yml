@@ -68,7 +68,7 @@ jobs:
         uses: orhun/git-cliff-action@v2
         with:
           config: ${{ env.cliff-cfg }}
-          args: --verbose --latest  --strip header
+          args: --latest  --strip header
         env:
           OUTPUT: CHANGES.md
 
