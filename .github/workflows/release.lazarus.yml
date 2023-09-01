@@ -15,7 +15,7 @@ on:
 
 jobs:
 
-  release_app:
+  release-app:
     name: release
     runs-on: ubuntu-latest
 
@@ -23,3 +23,6 @@ jobs:
       - name: Print some values
         run: |
           echo Artefacts: ${{ inputs.artefacts }}
+          echo Win: ${{ fromJSON(inputs.artefacts).win }}
+          echo Lin: ${{ fromJSON(inputs.artefacts).lin }}
+          echo OSX: ${{ fromJSON(inputs.artefacts).osx }}

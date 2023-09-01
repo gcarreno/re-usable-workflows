@@ -23,17 +23,17 @@ on:
     outputs:
       win_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build_app.outputs.win_artefact_path }}
+        value: ${{ jobs.build-app.outputs.win_artefact_path }}
       lin_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build_app.outputs.lin_artefact_path }}
+        value: ${{ jobs.build-app.outputs.lin_artefact_path }}
       osx_artefact_path:
         description: Path to the stored artefact folder
-        value: ${{ jobs.build_app.outputs.lin_artefact_path }}
+        value: ${{ jobs.build-app.outputs.osx_artefact_path }}
 
 jobs:
 
-  build_app:
+  build-app:
     name: build-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 

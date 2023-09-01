@@ -19,7 +19,7 @@ on:
 
 jobs:
 
-  test_app:
+  test-app:
     name: test-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
