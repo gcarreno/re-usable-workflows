@@ -16,7 +16,7 @@ on:
 jobs:
 
   release-app:
-    name: release
+    name: release-[${{ fromJSON(inputs.config).tag }}]
     runs-on: ubuntu-latest
 
     steps:

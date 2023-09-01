@@ -63,7 +63,7 @@ jobs:
           "lpi-path": "lazarus/tests",
           "bin-path": "lazarus/bin",
           "build-mode": "Release",
-          "what-tests": "all",
+          "what-suite": "all",
           "output-format": "plain",
           "matrix": {
             "os":[
