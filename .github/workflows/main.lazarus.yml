@@ -22,6 +22,7 @@ jobs:
       config: '{
           "app-name": "helloworld",
           "lpi-path": "src",
+          "bin-path": "bin",
           "matrix": {
             "os": [
               "ubuntu-latest",
@@ -58,6 +59,7 @@ jobs:
       config: '{
           "app-name": "helloworldtest",
           "lpi-path": "tests",
+          "bin-path": "bin",
           "what-tests": "all",
           "output-format": "plain",
           "matrix": {
