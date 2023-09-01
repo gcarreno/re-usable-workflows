@@ -1,6 +1,12 @@
 # Release Notes
 
-Notable changes on this release.
+Notable changes up to the last release.
+
+## [0.4] - 2023-09-01
+
+### Features
+
+- All checkouts at depth 0
 
 ## [0.3] - 2023-09-01
 
