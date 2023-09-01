@@ -27,6 +27,14 @@ jobs:
               {
                 "os": "ubuntu-latest",
                 "triplet": "x86_64-linux"
+              },
+              {
+                "os": "windows-latest",
+                "triplet": "x86_64-win64"
+              },
+              {
+                "os": "macos-latest",
+                "triplet": "x86_64-darwin"
               }
             ],
             "lazarus-versions": [
@@ -49,10 +57,9 @@ jobs:
           "output-format": "plain",
           "matrix": {
             "include":[
-              {
-                "os": "ubuntu-latest",
-                "triplet": "x86_64-linux"
-              }
+              { "os": "ubuntu-latest" },
+              { "os": "windows-latest" },
+              { "os": "macos-latest" }
             ]
           }
         }'
