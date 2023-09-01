@@ -56,7 +56,7 @@ jobs:
     uses: gcarreno/re-usable-workflows/.github/workflows/test.lazarus.yml@main
     with:
       config: '{
-          "app-name": "helloworld",
+          "app-name": "helloworldtest",
           "lpi-path": "tests",
           "what-tests": "all",
           "output-format": "plain",
