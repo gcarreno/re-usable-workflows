@@ -61,6 +61,14 @@ jobs:
             cd ..
           fi
 
+      - name: Generate Release Notes
+        uses: orhun/git-cliff-action@v2
+        with:
+          config: cliff.toml
+          args: --verbose --latest
+        env:
+          OUTPUT: ${{ env.release-notes }}
+
       - name: Create GitHub release
         uses: softprops/action-gh-release@v0.1.15
         with:

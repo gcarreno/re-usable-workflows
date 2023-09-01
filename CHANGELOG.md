@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### Miscellaneous Tasks
+
+- Adding git cliff generated files and conf
+- Added git cliff config file to be ignored
+
 ## [0.1-testing+11] - 2023-09-01
 
 ### Documentation
