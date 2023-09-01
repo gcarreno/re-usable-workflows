@@ -21,7 +21,10 @@ jobs:
 
     steps:
       - name: Build env from inputs.config
-        run: echo "cfg=${{ fromJSON(inputs.config) }}" >> "$GITHUB_ENV"
+        run: |
+          echo "win=${{ fromJSON(inputs.config).win }}" >> "$GITHUB_ENV"
+          echo "lin=${{ fromJSON(inputs.config).lin }}" >> "$GITHUB_ENV"
+          echo "osx=${{ fromJSON(inputs.config).osx }}" >> "$GITHUB_ENV"
 
       - name: Print some values
         run: |
