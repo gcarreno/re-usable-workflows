@@ -30,10 +30,13 @@ jobs:
       matrix: ${{ fromJSON(inputs.config).matrix }}
 
     steps:
+      - name: Build env from inputs.config
+        run: echo "cfg=fromJSON(inputs.config)" >> "$GITHUB_ENV"
+
       - name: Print some values
         run: |
-          echo App Name: ${{ fromJSON(inputs.config).app-name }}
-          echo LPI Path: ${{ fromJSON(inputs.config).lpi-path }}/${{ fromJSON(inputs.config).app-name }}.lpi
+          echo App Name: ${{ env.cfg.app-name }}
+          echo LPI Path: ${{ env.cfg.lpi-path }}/${{ env.cfg.app-name }}.lpi
           echo Matrix OS: ${{ matrix.os }}
           echo Executable: ${{ env._EXE_ }}
           echo Config: ${{ inputs.config }}

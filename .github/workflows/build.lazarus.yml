@@ -1,8 +1,5 @@
 name: Lazarus Build Workflow
 
-env:
-  cfg: ${{ fromJSON(inputs.config) }}
-
 defaults:
   run:
     shell: bash
@@ -53,6 +50,9 @@ jobs:
       osx-artefact-path: ${{ steps.vars.outputs.osx-artefact-path }}
 
     steps:
+      - name: Build env from inputs.config
+        run: echo "cfg=fromJSON(inputs.config)" >> "$GITHUB_ENV"
+
 #      - name: Checkout Repository
 #        uses: actions/checkout@v3
 #        with:
@@ -77,16 +77,16 @@ jobs:
         run: |
           case "${{ matrix.os }}" in
             "windows-latest")
-              echo Setting win-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
-              echo "win-artefact-path=${{ fromJSON(inputs.config).triplets.windows-latest }}" >> "$GIT_OUTPUT"
+              echo Setting win-artefact-path to ${{ matrix.os }}
+              echo "win-artefact-path=${{ matrix.os }}" >> "$GIT_OUTPUT"
             ;;
             "ubuntu-latest")
-              echo Setting lin-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
-              echo "lin-artefact-path=${{ fromJSON(inputs.config).triplets.ubuntu-latest }}" >> "$GIT_OUTPUT"
+              echo Setting lin-artefact-path to ${{ matrix.os }}
+              echo "lin-artefact-path=${{ matrix.os }}" >> "$GIT_OUTPUT"
             ;;
             "macos-latest")
-              echo Setting osx-artefact-path to ${{ fromJSON(inputs.config).triplets[matrix.os] }}
-              echo "osx-artefact-path=${{ fromJSON(inputs.config).triplets.macos-latest }}" >> "$GIT_OUTPUT"
+              echo Setting osx-artefact-path to ${{ matrix.os }}
+              echo "osx-artefact-path=${{ matrix.os }}" >> "$GIT_OUTPUT"
             ;;
           esac
 
