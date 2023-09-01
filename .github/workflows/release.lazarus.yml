@@ -22,6 +22,7 @@ jobs:
     steps:
       - name: Build env from inputs.config
         run: |
+          echo "tag=${GITHUB_REF#refs/*/} >> "$GITHUB_ENV"
           echo "win=${{ fromJSON(inputs.config).win }}" >> "$GITHUB_ENV"
           echo "lin=${{ fromJSON(inputs.config).lin }}" >> "$GITHUB_ENV"
           echo "osx=${{ fromJSON(inputs.config).osx }}" >> "$GITHUB_ENV"
@@ -29,6 +30,7 @@ jobs:
       - name: Print some values
         run: |
           echo Config: ${{ inputs.config }}
+          echo Tag: ${{ env.tag }}
           echo Win: ${{ env.win }}
           echo Lin: ${{ env.lin }}
           echo OSX: ${{ env.osx }}
