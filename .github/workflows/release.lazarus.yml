@@ -24,6 +24,7 @@ jobs:
         run: |
           echo "app-name=${{ fromJSON(inputs.config).app-name }}" >> "$GITHUB_ENV"
           echo "tag=${{ fromJSON(inputs.config).tag }}" >> "$GITHUB_ENV"
+          echo "cliff-cfg=${{ fromJSON(inputs.config).cliff-cfg }}" >> "$GITHUB_ENV"
           echo "win=${{ fromJSON(inputs.config).win }}" >> "$GITHUB_ENV"
           echo "lin=${{ fromJSON(inputs.config).lin }}" >> "$GITHUB_ENV"
           echo "osx=${{ fromJSON(inputs.config).osx }}" >> "$GITHUB_ENV"
@@ -66,8 +67,8 @@ jobs:
         id: git-cliff
         uses: orhun/git-cliff-action@v2
         with:
-          config: cliff.toml
-          args: --verbose --current
+          config: ${{ env.cliff-cfg }}
+          args: --verbose --latest
         env:
           OUTPUT: CHANGES.md
 
