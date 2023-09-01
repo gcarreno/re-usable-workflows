@@ -45,8 +45,7 @@ jobs:
               }
             ],
             "lazarus-versions": [
-              "stable",
-              "2.0.12"
+              "stable"
             ]
           }
         }'
@@ -72,8 +71,7 @@ jobs:
               "macos-latest"
             ],
             "lazarus-versions": [
-              "stable",
-              "2.0.12"
+              "stable"
             ]
           }
         }'

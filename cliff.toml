@@ -9,7 +9,7 @@
 # changelog header
 header = """
 # Release Notes\n
-Notable changes on this release.\n
+Notable changes up to the last release.\n
 """
 # template for the changelog body
 # https://tera.netlify.app/docs
