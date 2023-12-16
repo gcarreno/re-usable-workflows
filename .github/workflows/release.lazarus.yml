@@ -22,17 +22,20 @@ jobs:
     steps:
       - name: Build env from inputs.config
         run: |
-          echo "app-name=${{ fromJSON(inputs.config).app-name }}" >> "$GITHUB_ENV"
-          echo "tag=${{ fromJSON(inputs.config).tag }}" >> "$GITHUB_ENV"
-          echo "cliff-cfg=${{ fromJSON(inputs.config).cliff-cfg }}" >> "$GITHUB_ENV"
-          echo "win=${{ fromJSON(inputs.config).win }}" >> "$GITHUB_ENV"
-          echo "lin=${{ fromJSON(inputs.config).lin }}" >> "$GITHUB_ENV"
-          echo "osx=${{ fromJSON(inputs.config).osx }}" >> "$GITHUB_ENV"
+          (
+            echo "app-name=${{ fromJSON(inputs.config).app-name }}"
+            echo "tag=${{ fromJSON(inputs.config).tag }}"
+            echo "cliff-cfg=${{ fromJSON(inputs.config).cliff-cfg }}"
+            echo "win=${{ fromJSON(inputs.config).win }}"
+            echo "lin=${{ fromJSON(inputs.config).lin }}"
+            echo "osx=${{ fromJSON(inputs.config).osx }}"
+          ) >> "$GITHUB_ENV"
 
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          submodules: true
 
       - name: Download the Release binaries
         uses: actions/download-artifact@v3

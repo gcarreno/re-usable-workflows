@@ -32,17 +32,19 @@ jobs:
     steps:
       - name: Build env from inputs.config
         run: |
-          echo "app-name=${{ fromJSON(inputs.config).app-name }}" >> "$GITHUB_ENV"
-          echo "lpi-path=${{ fromJSON(inputs.config).lpi-path }}" >> "$GITHUB_ENV"
-          echo "bin-path=${{ fromJSON(inputs.config).bin-path }}" >> "$GITHUB_ENV"
-          echo "build-mode=${{ fromJSON(inputs.config).build-mode }}" >> "$GITHUB_ENV"
-          echo "what-suite=${{ fromJSON(inputs.config).what-suite }}" >> "$GITHUB_ENV"
-          echo "output-format=${{ fromJSON(inputs.config).output-format }}" >> "$GITHUB_ENV"
+          (
+            echo "app-name=${{ fromJSON(inputs.config).app-name }}"
+            echo "lpi-path=${{ fromJSON(inputs.config).lpi-path }}"
+            echo "bin-path=${{ fromJSON(inputs.config).bin-path }}"
+            echo "build-mode=${{ fromJSON(inputs.config).build-mode }}"
+            echo "what-suite=${{ fromJSON(inputs.config).what-suite }}"
+            echo "output-format=${{ fromJSON(inputs.config).output-format }}"
+          ) >> "$GITHUB_ENV"
 
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 1
           submodules: true
 
       - name: Install Lazarus
