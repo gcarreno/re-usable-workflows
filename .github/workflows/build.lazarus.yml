@@ -100,15 +100,12 @@ jobs:
           (
             case "${{ matrix.os }}" in
               "windows-latest")
-                echo Setting win-artefact-path to ${{ matrix.triplet }}
                 echo "win-artefact-path=${{ env.app-name }}-${{ matrix.triplet }}"
               ;;
               "ubuntu-latest")
-                echo Setting lin-artefact-path to ${{ matrix.os }}
                 echo "lin-artefact-path=${{ env.app-name }}-${{ matrix.triplet }}"
               ;;
               "macos-latest")
-                echo Setting osx-artefact-path to ${{ matrix.os }}
                 echo "osx-artefact-path=${{ env.app-name }}-${{ matrix.triplet }}"
               ;;
             esac
