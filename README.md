@@ -39,6 +39,7 @@ Example:
   "lpi-path": "lazarus/src",
   "bin-path": "lazarus/bin",
   "build-mode": "Release",
+  "lazarus-packages": "",
   "matrix": {
     "os": [
       "ubuntu-latest",
