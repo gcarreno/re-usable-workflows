@@ -49,7 +49,7 @@ jobs:
           submodules: true
 
       - name: Install Lazarus
-        uses: gcarreno/setup-lazarus@v3.2.15
+        uses: gcarreno/setup-lazarus@v3
         with:
           lazarus-version: ${{ matrix.lazarus-versions }}
           include-packages: "${{ env.lazarus-packages }}"
