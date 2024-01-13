@@ -19,12 +19,13 @@ on:
 
 jobs:
 
-  strategy:
-    fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
 
   release-app:
     name: release [${{ fromJSON(inputs.config).tag }}]
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
 
     steps:
       - name: Build env from inputs.config

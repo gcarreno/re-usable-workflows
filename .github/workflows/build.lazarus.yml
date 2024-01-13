@@ -29,9 +29,6 @@ on:
 
 jobs:
 
-  strategy:
-    fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
-
   build-app:
     name: build [${{ matrix.os }}] [${{ matrix.lazarus-versions }}]
     runs-on: ${{ matrix.os }}
@@ -50,6 +47,7 @@ jobs:
 
     strategy:
       matrix: ${{ fromJSON(inputs.config).matrix }}
+      fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
 
     outputs:
       win-artefact-path: ${{ steps.vars.outputs.win-artefact-path }}

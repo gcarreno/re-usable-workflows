@@ -19,9 +19,6 @@ on:
 
 jobs:
 
-  strategy:
-    fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
-
   test-app:
     name: test [${{ matrix.os }}] [${{ matrix.lazarus-versions }}]
     runs-on: ${{ matrix.os }}
@@ -35,6 +32,7 @@ jobs:
 
     strategy:
       matrix: ${{ fromJSON(inputs.config).matrix }}
+      fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
 
     steps:
       - name: Build env from inputs.config
