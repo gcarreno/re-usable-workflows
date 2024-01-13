@@ -15,7 +15,7 @@ on:
       fail-fast:
         description: Fail Fast on the jobs
         required: true
-        type: bool
+        type: boolean
     outputs:
       win-artefact-path:
         description: Path to the stored artefact folder
