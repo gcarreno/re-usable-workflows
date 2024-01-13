@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
+      fail-fast: ${{ inputs.fail-fast }}
 
     steps:
       - name: Build env from inputs.config

@@ -32,7 +32,7 @@ jobs:
 
     strategy:
       matrix: ${{ fromJSON(inputs.config).matrix }}
-      fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
+      fail-fast: ${{ inputs.fail-fast }}
 
     steps:
       - name: Build env from inputs.config

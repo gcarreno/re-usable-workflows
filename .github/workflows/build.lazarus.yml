@@ -47,7 +47,7 @@ jobs:
 
     strategy:
       matrix: ${{ fromJSON(inputs.config).matrix }}
-      fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
+      fail-fast: ${{ inputs.fail-fast }}
 
     outputs:
       win-artefact-path: ${{ steps.vars.outputs.win-artefact-path }}
