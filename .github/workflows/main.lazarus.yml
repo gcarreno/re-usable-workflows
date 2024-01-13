@@ -50,7 +50,7 @@ jobs:
               "2.2.6"
             ]
           }
-        }',
+        }'
       fail-fast: false
 
   test:
@@ -76,7 +76,7 @@ jobs:
               "2.2.6"
             ]
           }
-        }',
+        }'
       fail-fast: false
 
   release:
@@ -93,6 +93,6 @@ jobs:
           "win": "${{ needs.build.outputs.win-artefact-path }}",
           "lin": "${{ needs.build.outputs.lin-artefact-path }}",
           "osx": "${{ needs.build.outputs.osx-artefact-path }}"
-        }',
+        }'
       fail-fast: false
 
