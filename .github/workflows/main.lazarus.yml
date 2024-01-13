@@ -50,10 +50,8 @@ jobs:
               "2.2.6"
             ]
           }
-        }'
-
-    strategy:
-      fail-fast: true
+        }',
+      fail-fast: false
 
   test:
     name: 02 - Test Application
@@ -78,10 +76,8 @@ jobs:
               "2.2.6"
             ]
           }
-        }'
-
-    strategy:
-      fail-fast: true
+        }',
+      fail-fast: false
 
   release:
     if: contains(github.ref_type, 'tag')
@@ -97,7 +93,6 @@ jobs:
           "win": "${{ needs.build.outputs.win-artefact-path }}",
           "lin": "${{ needs.build.outputs.lin-artefact-path }}",
           "osx": "${{ needs.build.outputs.osx-artefact-path }}"
-        }'
+        }',
+      fail-fast: false
 
-    strategy:
-      fail-fast: true

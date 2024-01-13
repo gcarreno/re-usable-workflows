@@ -12,8 +12,15 @@ on:
         description: A JSON object containing configuration values
         required: true
         type: string
+      fail-fast:
+        description: Fail Fast on the jobs
+        required: true
+        type: bool
 
 jobs:
+
+  strategy:
+    fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
 
   release-app:
     name: release [${{ fromJSON(inputs.config).tag }}]

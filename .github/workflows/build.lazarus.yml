@@ -12,6 +12,10 @@ on:
         description: A JSON object containing configuration values
         required: true
         type: string
+      fail-fast:
+        description: Fail Fast on the jobs
+        required: true
+        type: bool
     outputs:
       win-artefact-path:
         description: Path to the stored artefact folder
@@ -24,6 +28,9 @@ on:
         value: ${{ jobs.build-app.outputs.osx-artefact-path }}
 
 jobs:
+
+  strategy:
+    fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
 
   build-app:
     name: build [${{ matrix.os }}] [${{ matrix.lazarus-versions }}]

@@ -12,8 +12,15 @@ on:
         description: A JSON object containing configuration values
         required: true
         type: string
+      fail-fast:
+        description: Fail Fast on the jobs
+        required: true
+        type: bool
 
 jobs:
+
+  strategy:
+    fail-fast: ${{ fromJSON(inputs.config).fail-fast }}
 
   test-app:
     name: test [${{ matrix.os }}] [${{ matrix.lazarus-versions }}]
