@@ -60,7 +60,7 @@ jobs:
           include-packages: "${{ env.lazarus-packages }}"
           with-cache: false
 
-      - name: Build the Main App
+      - name: Build the Test App
         run: lazbuild -B --bm="${{ env.build-mode }}" "${{ env.lpi-path }}/${{ env.app-name }}.lpi"
 
       - name: Run the tests
