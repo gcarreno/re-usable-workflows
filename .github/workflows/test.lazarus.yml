@@ -48,7 +48,7 @@ jobs:
           ) >> "$GITHUB_ENV"
 
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: true
